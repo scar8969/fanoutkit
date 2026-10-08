@@ -1,0 +1,23 @@
+openapi: 3.0.0
+info:
+  title: "📣 message-pusher"
+  version: 0.1.0
+paths:
+  /api/push:
+    post:
+      summary: push message
+      responses:
+        "200":
+          description: ok
+  /api/status/<id>:
+    get:
+      summary: message status
+      responses:
+        "200":
+          description: ok
+  /api/messages/<id>/retry:
+    post:
+      summary: retry
+      responses:
+        "200":
+          description: ok

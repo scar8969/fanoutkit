@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}Message {{ msg.id }} · message-pusher{% endblock %}
+{% block content %}
+<h1>Message #{{ msg.id }}</h1>
+<p class="sub">App {{ app_row.name if app_row else "(deleted)" }} · status <span class="tag {{ 'g' if msg.status == 'delivered' else 'r' if msg.status == 'failed' else 'y' }}">{{ msg.status }}</span></p>
+
+<div class="card">
+  <table>
+    <tr><th>Title</th><td>{{ msg.title or "(untitled)" }}</td></tr>
+    <tr><th>Body</th><td><pre style="margin:0">{{ msg.body }}</pre></td></tr>
+    <tr><th>Created</th><td>{{ msg.created_at.isoformat(sep=' ', timespec='seconds') if msg.created_at else "" }}</td></tr>
+    <tr><th>App</th><td>{{ msg.app_id }}</td></tr>
+  </table>
+</div>
+
+<h2>Delivery receipts</h2>
+<div class="card">
+  {% if receipts %}
+  <table>
+    <tr><th>Channel</th><th>Status</th><th>Attempts</th><th>Detail</th><th>Next retry</th></tr>
+    {% for r in receipts %}
+    <tr>
+      <td>{{ r.channel }}</td>
+      <td><span class="tag {{ 'g' if r.status == 'sent' else 'r' if r.status == 'failed' else 'y' }}">{{ r.status }}</span></td>
+      <td>{{ r.attempts }}</td>
+      <td><code>{{ r.detail }}</code></td>
+      <td>{{ r.next_retry_at.isoformat(sep=' ', timespec='seconds') if r.next_retry_at else "—" }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+  {% else %}
+  <div class="empty">No receipts for this message.</div>
+  {% endif %}
+  <form class="row" method="post" action="{{ url_for('message_retry', mid=msg.id) }}" style="margin-top:14px">
+    <button class="btn" type="submit">Re-queue retrying receipts and dispatch</button>
+    <span class="sub" style="margin:0">POST {{ url_for('message_retry', mid=msg.id) }}</span>
+  </form>
+</div>
+
+<p><a class="btn ghost" href="{{ url_for('index') }}">← Dashboard</a></p>
+{% endblock %}

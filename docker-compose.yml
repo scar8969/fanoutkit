@@ -1,0 +1,30 @@
+# Local stack. The named volume keeps the sqlite database and logs across runs.
+services:
+  message_pusher:
+    build: .
+    image: message_pusher:local
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    environment:
+      APP_ENV: production
+      LOG_JSON: "true"
+    volumes:
+      - app-state:/var/lib/message_pusher
+    read_only: true
+    tmpfs:
+      - /tmp
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request;urllib.request.urlopen('http://127.0.0.1:8000/healthz', timeout=2)"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+
+volumes:
+  app-state:

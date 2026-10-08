@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block title %}Apps · message-pusher{% endblock %}
+{% block content %}
+<h1>Apps &amp; API keys</h1>
+<p class="sub">Each app owns a SHA-256 hash of its key. The plaintext key is never stored.</p>
+
+<div class="card">
+  <h2 style="margin-top:0">Register an app</h2>
+  <form class="row" method="post" action="{{ url_for('apps_create') }}">
+    <label>Name<br><input name="name" required size="20" placeholder="ci-bot"></label>
+    <label>Key<br><input name="key" required size="24" placeholder="choose a secret"></label>
+    <label>Max attempts<br><input name="retry_max" type="number" min="1" max="20" value="5" size="4"></label>
+    <button class="btn" type="submit">Create app</button>
+  </form>
+</div>
+
+<h2>Registered apps</h2>
+<div class="card">
+  {% if apps %}
+  <table>
+    <tr><th>#</th><th>Name</th><th>Key hash (first 12)</th><th>Max attempts</th><th>Created</th><th>Messages</th></tr>
+    {% for a in apps %}
+    <tr>
+      <td>{{ a.id }}</td>
+      <td>{{ a.name }}</td>
+      <td><code>{{ (a.key_hash or "")[:12] }}{% if a.key_hash %}…{% endif %}</code></td>
+      <td>{{ a.retry_max }}</td>
+      <td>{{ a.created_at.isoformat(sep=' ', timespec='seconds') if a.created_at else "" }}</td>
+      <td>{{ messages | selectattr('app_id', 'equalto', a.id) | list | length }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+  {% else %}
+  <div class="empty">No apps yet.</div>
+  {% endif %}
+</div>
+
+<h2>Recent messages</h2>
+<div class="card">
+  {% if messages %}
+  <table>
+    <tr><th>#</th><th>App</th><th>Title</th><th>Status</th><th></th></tr>
+    {% for m in messages %}
+    <tr>
+      <td>{{ m.id }}</td>
+      <td>{{ m.app_id }}</td>
+      <td>{{ m.title or "(untitled)" }}</td>
+      <td><span class="tag {{ 'g' if m.status == 'delivered' else 'r' if m.status == 'failed' else 'y' }}">{{ m.status }}</span></td>
+      <td><a class="btn ghost" href="{{ url_for('message_detail', mid=m.id) }}">Inspect</a></td>
+    </tr>
+    {% endfor %}
+  </table>
+  {% else %}
+  <div class="empty">No messages yet.</div>
+  {% endif %}
+</div>
+{% endblock %}

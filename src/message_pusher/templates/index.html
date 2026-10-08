@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block title %}Dashboard · message-pusher{% endblock %}
+{% block content %}
+<h1>Dashboard</h1>
+<p class="sub">Live view of the local SQLite store — every number below is a real query.</p>
+
+<div class="stats">
+  <div class="stat"><b>{{ counts.messages }}</b><span>messages</span></div>
+  <div class="stat"><b>{{ counts.apps }}</b><span>apps</span></div>
+  <div class="stat"><b>{{ counts.queued }}</b><span>queued / retrying</span></div>
+  <div class="stat"><b>{{ counts.delivered }}</b><span>delivered</span></div>
+  <div class="stat"><b>{{ counts.failed }}</b><span>failed</span></div>
+</div>
+
+<div class="card">
+  <h2 style="margin-top:0">Registered channels</h2>
+  {% if channels %}
+    {% for name in channels %}<span class="tag b">{{ name }}</span> {% endfor %}
+  {% else %}
+    <div class="empty">No channel classes are registered.</div>
+  {% endif %}
+</div>
+
+<h2>Recent messages</h2>
+<div class="card">
+  {% if messages %}
+  <table>
+    <tr><th>#</th><th>Title</th><th>Status</th><th>Created</th><th></th></tr>
+    {% for m in messages %}
+    <tr>
+      <td>{{ m.id }}</td>
+      <td>{{ m.title or "(untitled)" }}</td>
+      <td><span class="tag {{ 'g' if m.status == 'delivered' else 'r' if m.status == 'failed' else 'y' }}">{{ m.status }}</span></td>
+      <td>{{ m.created_at.isoformat(sep=' ', timespec='seconds') if m.created_at else "" }}</td>
+      <td><a class="btn ghost" href="{{ url_for('message_detail', mid=m.id) }}">Inspect</a></td>
+    </tr>
+    {% endfor %}
+  </table>
+  {% else %}
+  <div class="empty">No messages yet. POST to <code>{{ url_for('api.push') }}</code> or use the form below.</div>
+  {% endif %}
+</div>
+
+<h2>Send a message</h2>
+<div class="card">
+  <form class="row" method="post" action="{{ url_for('api.push') }}">
+    <label>App key<br><input name="X-App-Key" required size="26" placeholder="the key you registered"></label>
+    <label>Title<br><input name="title" size="24" placeholder="Deploy finished"></label>
+    <label>Body<br><input name="body" size="28" placeholder="build 42 is live"></label>
+    <label>Channel<br><input name="channels" size="12" placeholder="telegram"></label>
+    <button class="btn" type="submit">Push</button>
+  </form>
+  <p class="sub" style="margin:12px 0 4px">The API authenticates with the <code>X-App-Key</code> header, so this browser form
+  receives <code>401 {"error":"unauthorized"}</code> until <a href="{{ url_for('apps_page') }}">an app</a> matches the key — that is the
+  documented behaviour of a protected endpoint, not a page error. Use <code>/healthz</code> for an unauthenticated liveness check.</p>
+  <pre>{{ cli }}</pre>
+</div>
+
+<h2>Latest apps</h2>
+<div class="card">
+  {% if apps %}
+  <table>
+    <tr><th>#</th><th>Name</th><th>max attempts</th><th>Base URL</th></tr>
+    {% for a in apps %}
+    <tr>
+      <td>{{ a.id }}</td><td>{{ a.name }}</td><td>{{ a.retry_max }}</td>
+      <td><code>{{ url_for('api.status', mid=0)[:-1] }}&lt;message_id&gt;</code></td>
+    </tr>
+    {% endfor %}
+  </table>
+  {% else %}
+  <div class="empty">No apps registered. <a href="{{ url_for('apps_page') }}">Register one</a> to enable pushing.</div>
+  {% endif %}
+</div>
+{% endblock %}
