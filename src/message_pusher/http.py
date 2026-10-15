@@ -10,7 +10,8 @@ import functools
 import threading
 import time
 from collections import OrderedDict
-from typing import Any, Callable, Iterable
+from collections.abc import Callable, Iterable
+from typing import Any, NoReturn
 
 from flask import Blueprint, Flask, Response, g, jsonify, request
 from werkzeug.exceptions import HTTPException, MethodNotAllowed
@@ -72,6 +73,9 @@ _KNOWN_STATUS_BUCKETS = (200, 201, 204, 301, 302, 304, 400, 401, 403, 404, 405, 
 
 def _sanitize_metric(value: str) -> str:
     return "".join(ch if ch.isalnum() or ch in "_-:/." else "_" for ch in value)
+
+
+METRICS_CONTENT_TYPE = "text/plain; version=0.0.4; charset=utf-8"
 
 
 def render_metrics() -> str:
@@ -157,17 +161,17 @@ def register_error_handlers(app: Flask, settings: Settings) -> None:
     logger = observability.get_logger("message_pusher.errors")
 
     @app.errorhandler(AppError)
-    def _application_error(exc: AppError):  # pragma: no cover - thin wrapper
+    def _application_error(exc: AppError) -> tuple[Response, int]:  # pragma: no cover - thin wrapper
         return jsonify(exc.to_dict()), exc.status_code
 
     @app.errorhandler(404)
-    def _not_found(exc):  # pragma: no cover - thin wrapper
+    def _not_found(exc: Any) -> Any:  # pragma: no cover - thin wrapper
         if request.path.startswith("/api/") or request.accept_mimetypes.best == "application/json":
             return jsonify({"error": "not_found", "message": "no such resource"}), 404
         return exc
 
     @app.errorhandler(405)
-    def _method_not_allowed(exc):  # pragma: no cover - thin wrapper
+    def _method_not_allowed(exc: Any) -> tuple[Response, int]:  # pragma: no cover - thin wrapper
         return (
             jsonify(
                 {
@@ -179,7 +183,7 @@ def register_error_handlers(app: Flask, settings: Settings) -> None:
         )
 
     @app.errorhandler(413)
-    def _too_large(exc):  # pragma: no cover - thin wrapper
+    def _too_large(exc: Any) -> tuple[Response, int]:  # pragma: no cover - thin wrapper
         return (
             jsonify(
                 {
@@ -191,7 +195,7 @@ def register_error_handlers(app: Flask, settings: Settings) -> None:
         )
 
     @app.errorhandler(Exception)
-    def _unhandled(exc: Exception):  # pragma: no cover - defensive
+    def _unhandled(exc: Exception) -> Any:  # pragma: no cover - defensive
         if isinstance(exc, AppError):
             return jsonify(exc.to_dict()), exc.status_code
         if isinstance(exc, HTTPException):
@@ -205,7 +209,7 @@ def register_error_handlers(app: Flask, settings: Settings) -> None:
         return jsonify({"error": "internal_error", "message": "internal server error"}), 500
 
 
-def _routes(app: Flask):
+def _routes(app: Flask) -> list[Any]:
     """The app's URL rules, newest registration last."""
     return list(app.url_map.iter_rules())
 
@@ -256,11 +260,11 @@ def guard_ops_methods(app: Flask, paths: Iterable[str]) -> list[str]:
     return added
 
 
-def _adopt(ops_view: Callable, legacy_view: Callable) -> Callable:
+def _adopt(ops_view: Callable[[], Any], legacy_view: Callable[..., Any]) -> Callable[..., Any]:
     """Compose the operational view with the one the application already had."""
 
     @functools.wraps(legacy_view)
-    def _combined(*args, **kwargs):
+    def _combined(*args: Any, **kwargs: Any) -> Any:
         legacy = legacy_view(*args, **kwargs)
         payload, status = ops_view()
         body = payload.get_json(silent=True) if hasattr(payload, "get_json") else None
@@ -279,7 +283,7 @@ def _adopt(ops_view: Callable, legacy_view: Callable) -> Callable:
     return _combined
 
 
-def _reject_ops_method(*_args, **_kwargs):
+def _reject_ops_method(*_args: Any, **_kwargs: Any) -> NoReturn:
     raise MethodNotAllowed(valid_methods=["GET"])
 
 
@@ -307,17 +311,17 @@ def ops_blueprint(
     return _bp
 
 
-def _ops_views(settings: Settings, checks: tuple) -> tuple:
+def _ops_views(settings: Settings, checks: tuple[Any, ...]) -> tuple[tuple[str, Callable[[], Any]], ...]:
     """The operational views, as ``(path, view)`` pairs."""
 
-    def healthz():  # pragma: no cover - exercised through the app
+    def healthz() -> tuple[Response, int]:  # pragma: no cover - exercised through the app
         return jsonify({"status": "ok", "service": settings.app_name,
                         "version": __version__}), 200
 
-    def livez():  # pragma: no cover - exercised through the app
+    def livez() -> tuple[Response, int]:  # pragma: no cover - exercised through the app
         return jsonify({"status": "alive"}), 200
 
-    def readyz():  # pragma: no cover - exercised through the app
+    def readyz() -> tuple[Response, int]:  # pragma: no cover - exercised through the app
         failures: list[dict[str, str]] = []
         for check in checks:
             name = getattr(check, "__name__", "check")
@@ -335,10 +339,15 @@ def _ops_views(settings: Settings, checks: tuple) -> tuple:
         return jsonify({"status": "ready", "checks": [getattr(c, "__name__", "check")
                                                       for c in checks]}), 200
 
-    def metrics():  # pragma: no cover - exercised through the app
-        return Response(render_metrics(), mimetype="text/plain; version=0.0.4; charset=utf-8")
+    def metrics() -> Response:  # pragma: no cover - exercised through the app
+        response = Response(render_metrics(), mimetype="text/plain")
+        # Prometheus expects the version parameter in the media type. Passing
+        # the whole string as the mimetype makes Werkzeug append a second
+        # charset, so the header is set once, after the response is built.
+        response.headers["Content-Type"] = METRICS_CONTENT_TYPE
+        return response
 
-    def version():  # pragma: no cover - exercised through the app
+    def version() -> tuple[Response, int]:  # pragma: no cover - exercised through the app
         return (
             jsonify(
                 {

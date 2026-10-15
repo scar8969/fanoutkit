@@ -16,9 +16,11 @@ python -m compileall -q src
 | check | result |
 | --- | --- |
 | compileall | exit 0 |
-| pytest | .........................                                                [100%] |
+| mypy | Success: no issues found in 22 source files |
+| pyflakes | 0 findings |
+| pytest | 189 passed in 4.05s |
 | pytest_exit_code | 0 |
-| recorded_at | 2026-10-08 |
+| recorded_at | 2026-10-15 |
 | routes_ok | 9 |
 | routes_probed | 9 |
 
@@ -66,10 +68,10 @@ no such resource, and 404 is the honest answer for that.
 # TYPE http_requests_total counter
 http_requests_total{method="GET",status="200"} 2
 # TYPE http_request_duration_seconds_sum counter
-http_request_duration_seconds_sum{method="GET"} 0.0789969
+http_request_duration_seconds_sum{method="GET"} 0.0620402
 http_requests_total{method="GET",status="404"} 2
 # TYPE process_uptime_seconds gauge
-process_uptime_seconds 0.632
+process_uptime_seconds 0.752
 ```
 
 `/version` answered **200**:
@@ -82,7 +84,7 @@ process_uptime_seconds 0.632
 
 | header | value |
 | --- | --- |
-| X-Request-ID | f2b9a4284ebf494b91ded9907fd93177 |
+| X-Request-ID | bce9b94a18514737ba1dda1aeb3d314f |
 | X-Content-Type-Options | nosniff |
 | X-Frame-Options | DENY |
 | Referrer-Policy | no-referrer |
@@ -90,10 +92,25 @@ process_uptime_seconds 0.632
 | Permissions-Policy | geolocation=(), microphone=(), camera=() |
 | Content-Type | application/json |
 
+## Static analysis
+
+`python -m pyflakes src tests conftest.py wsgi.py` reported **0 finding(s)**:
+
+```
+(no output)
+```
+
+`python -m mypy --config-file mypy.ini src` said:
+
+```
+Success: no issues found in 22 source files
+```
+
+`ruff`, `bandit` and `pip-audit` are configured in this project but are absent from this host and cannot be installed without network access, so no result for them is recorded either way.
+
 ## What this file does not claim
 
-- No browser screenshot: this host denies the Chromium sandbox the renderer
-  needs, so the HTTP surface is evidenced with recorded status codes instead.
+- No screenshot anywhere in this repository. The host that produced this file cannot run a headless browser: Chrome in --headless=new exits 21 on an OS access denial, Edge dies at the same point in mojo, and the Playwright bundle fails at launch() with WinError 5 even though its chrome-headless-shell.exe is present. The HTTP surface is evidenced with recorded status codes and bodies instead, and no placeholder image was added to take a screenshot's place.
 - No network access: the suite is hermetic and contacts no remote host.
 - No container run: the Dockerfile is reviewed, not executed, because no
   container runtime is reachable from this host.

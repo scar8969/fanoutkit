@@ -9,7 +9,7 @@ from __future__ import annotations
 import os
 from pathlib import Path
 
-ENV_PREFIX = "MESSAGE_PUSHER"
+ENV_PREFIX = "MESSAGE_PUSHER_"
 
 PACKAGE_DIR: Path = Path(__file__).resolve().parent
 SRC_DIR: Path = PACKAGE_DIR.parent

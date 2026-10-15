@@ -15,7 +15,7 @@ unverified dependency would mean shipping code that has never executed.
 
 Implement the minimal useful subset in `message_pusher.http`: a thread-safe
 `Counter`, a small registry, and a renderer that emits valid exposition text
-plus `process_uptime_seconds`. Counters are labelled by route template and
+plus `process_uptime_seconds`. Counters are labelled by HTTP method and
 status class.
 
 ## Consequences
@@ -31,9 +31,10 @@ status class.
 
 **Negative**
 
-- No histogram or summary type, so `http_request_duration_seconds` is exported
-  as a summary once observed rather than as a true histogram. Percentile
-  aggregation across replicas is therefore approximate.
+- No histogram or summary type, so request duration is exported only as a
+  running `http_request_duration_seconds_sum{method}` counter: there is no
+  count, no bucket and no p99. A scraper that wants percentiles must derive
+  them from the rate of that sum, which is an approximation.
 - No `prometheus_client` multiprocess support. Metrics are per worker, which
   is correct for the scrape model but means per-process values must not be summed
   as if they were cluster totals.

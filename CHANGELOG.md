@@ -10,7 +10,62 @@ this project adheres to Semantic Versioning
 
 ### Added
 
-- Nothing yet.
+- Recorded quality-gate evidence, quoted verbatim in
+  [docs/EVIDENCE.md](docs/EVIDENCE.md) and in the README: 189 tests passed with
+  0 failures and 0 errors, and 100.00% statement coverage over 760 statements,
+  alongside the exact commands that produced both.
+- Strict type annotations across all 22 source modules, so `mypy --strict`
+  reports no issues and `pyflakes` reports no findings.
+- Dependency-free SVG charts of test, coverage, latency, payload, LOC and
+  file-count data under `docs/assets/`, generated from the recorded metrics
+  document and committed so they render on the repository page without a build
+  step.
+- An application-factory test module covering `get_app()` (cold start, warm
+  start and the Flask instance it returns) and the configuration forwarding in
+  `create_app()`.
+
+### Changed
+
+- Every `Query.get()` and `Query.get_or_404()` call became `db.session.get()`
+  and `db.get_or_404()`, removing the SQLAlchemy 2.0 legacy deprecation
+  warnings from the suite.
+- `datetime.utcnow()` was deprecated in 3.12 and removed in 3.14; the naive-UTC
+  helper is now built from an aware `datetime.now(UTC)`.
+- The README quality-gate table, the HTTP surface, the operational-endpoint
+  bodies and the architecture tree are generated from measurements instead of
+  being written by hand.
+- `docs/OPERATIONS.md` and ADR 0002 now describe the metrics that are actually
+  exported: `http_requests_total{method,status}` and
+  `http_request_duration_seconds_sum{method}`, with no histogram, no count and
+  no p99.
+
+### Fixed
+
+- `/metrics` advertised `text/plain; version=0.0.4; charset=utf-8; charset=utf-8`,
+  a duplicated charset parameter, because the whole media type was passed to
+  Flask as the mimetype. The header is now written once, and a test asserts its
+  exact value.
+- Overrides prefixed `MESSAGE_PUSHER_` were ignored: `paths.ENV_PREFIX` was
+  missing its trailing underscore.
+- A whitespace-only boolean such as `DEBUG=" "` was refused instead of falling
+  back to the documented default.
+- `message_pusher apps` kept a SQLAlchemy engine per invocation instead of
+  disposing it, so a long-lived process accumulated engines.
+- `message_pusher status` raised `KeyError` when a 200 response was not the
+  documented envelope; it now prints the body verbatim.
+- The CLI left an `HTTPError` response unclosed, holding the socket until the
+  garbage collector ran; the response is now closed.
+
+### Known limitations
+
+- No screenshot is committed, because no headless browser can start on the host
+  that produced this release: Chrome and Edge both fail on an operating-system
+  access denial and the Playwright bundle fails with `WinError 5`. The HTTP
+  surface is evidenced with recorded status codes, sizes and bodies instead.
+- `ruff`, `bandit` and `pip-audit` are configured but were never executed here:
+  the generating host has no network access. `pyflakes` and `mypy` are the
+  static checks that could run, and both are clean.
+- No container image has been built.
 
 ## [0.1.0] - 2026-10-08
 
@@ -49,7 +104,8 @@ it is new.
 
 - ruff, bandit and pip-audit are configured but were never executed: the
   generating sandbox had no network access.
-- The coverage floor is configured but has not been measured here.
+- The coverage floor is configured here; it was measured in the following pass
+  at 100.00%, above the 85% gate.
 - No container image has been built.
 
 [Unreleased]: https://example.invalid/message_pusher/compare/v0.1.0...HEAD

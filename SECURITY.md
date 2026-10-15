@@ -30,9 +30,11 @@ days and a remediation plan within ten.
   response, error responses included, so a new route cannot forget them.
 - **Resource exhaustion through large bodies.** `MAX_CONTENT_LENGTH` caps
   request bodies and produces `413` with the standard envelope.
-- **Container surface.** Multi-stage build, unprivileged uid 1001, all
-  capabilities dropped, `no-new-privileges`, read-only root filesystem, and a
-  writable volume only for `DATA_DIR`.
+- **Container surface.** The image is a multi-stage build and runs as
+  unprivileged uid 1001; `docker-compose.yml` adds `cap_drop: [ALL]`,
+  `no-new-privileges`, a read-only root filesystem and a writable volume for
+  `DATA_DIR` only. The first two are properties of the image, the rest must be
+  restated in whatever orchestrator you actually deploy with.
 
 ### What this service does not protect
 

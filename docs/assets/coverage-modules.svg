@@ -1,0 +1,78 @@
+<svg xmlns='http://www.w3.org/2000/svg' width='900' height='473' viewBox='0 0 900 473' role='img' aria-label='Coverage by module'>
+<rect width='900' height='473' rx='12' fill='#ffffff' stroke='#d1d9e0'/>
+<text x='26' y='33' font-family='Segoe UI, -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif' font-size='17' font-weight='600' fill='#1f2328'>Coverage by module</text>
+<text x='26' y='53' font-family='Segoe UI, -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif' font-size='12' fill='#59636e'>every measured module, least covered first</text>
+<line x1='391' y1='72' x2='391' y2='431' stroke='#d1d9e0' stroke-dasharray='3 4'/>
+<text x='391' y='449' font-family='Segoe UI, -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif' font-size='10' fill='#59636e' text-anchor='middle'>25.0%</text>
+<line x1='525' y1='72' x2='525' y2='431' stroke='#d1d9e0' stroke-dasharray='3 4'/>
+<text x='525' y='449' font-family='Segoe UI, -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif' font-size='10' fill='#59636e' text-anchor='middle'>50.0%</text>
+<line x1='658' y1='72' x2='658' y2='431' stroke='#d1d9e0' stroke-dasharray='3 4'/>
+<text x='658' y='449' font-family='Segoe UI, -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif' font-size='10' fill='#59636e' text-anchor='middle'>75.0%</text>
+<line x1='792' y1='72' x2='792' y2='431' stroke='#d1d9e0' stroke-dasharray='3 4'/>
+<text x='792' y='449' font-family='Segoe UI, -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif' font-size='10' fill='#59636e' text-anchor='middle'>100.0%</text>
+<text x='246' y='93' font-family='ui-monospace, SFMono-Regular, Consolas, monospace' font-size='12' fill='#1f2328' text-anchor='end'>http.py</text>
+<rect x='258' y='82' width='534' height='15' rx='4' fill='#eef1f4'/>
+<rect x='258' y='82' width='534' height='15' rx='4' fill='#0969da'/>
+<text x='800' y='93' font-family='ui-monospace, SFMono-Regular, Consolas, monospace' font-size='12' font-weight='600' fill='#1f2328'>100.0%</text>
+<text x='248' y='93' font-family='ui-monospace, SFMono-Regular, Consolas, monospace' font-size='11' fill='#59636e' text-anchor='start'>126/126 stmts</text>
+<text x='246' y='120' font-family='ui-monospace, SFMono-Regular, Consolas, monospace' font-size='12' fill='#1f2328' text-anchor='end'>cli.py</text>
+<rect x='258' y='109' width='534' height='15' rx='4' fill='#eef1f4'/>
+<rect x='258' y='109' width='534' height='15' rx='4' fill='#0969da'/>
+<text x='800' y='120' font-family='ui-monospace, SFMono-Regular, Consolas, monospace' font-size='12' font-weight='600' fill='#1f2328'>100.0%</text>
+<text x='248' y='120' font-family='ui-monospace, SFMono-Regular, Consolas, monospace' font-size='11' fill='#59636e' text-anchor='start'>94/94 stmts</text>
+<text x='246' y='147' font-family='ui-monospace, SFMono-Regular, Consolas, monospace' font-size='12' fill='#1f2328' text-anchor='end'>config.py</text>
+<rect x='258' y='136' width='534' height='15' rx='4' fill='#eef1f4'/>
+<rect x='258' y='136' width='534' height='15' rx='4' fill='#0969da'/>
+<text x='800' y='147' font-family='ui-monospace, SFMono-Regular, Consolas, monospace' font-size='12' font-weight='600' fill='#1f2328'>100.0%</text>
+<text x='248' y='147' font-family='ui-monospace, SFMono-Regular, Consolas, monospace' font-size='11' fill='#59636e' text-anchor='start'>84/84 stmts</text>
+<text x='246' y='174' font-family='ui-monospace, SFMono-Regular, Consolas, monospace' font-size='12' fill='#1f2328' text-anchor='end'>observability.py</text>
+<rect x='258' y='163' width='534' height='15' rx='4' fill='#eef1f4'/>
+<rect x='258' y='163' width='534' height='15' rx='4' fill='#0969da'/>
+<text x='800' y='174' font-family='ui-monospace, SFMono-Regular, Consolas, monospace' font-size='12' font-weight='600' fill='#1f2328'>100.0%</text>
+<text x='248' y='174' font-family='ui-monospace, SFMono-Regular, Consolas, monospace' font-size='11' fill='#59636e' text-anchor='start'>67/67 stmts</text>
+<text x='246' y='201' font-family='ui-monospace, SFMono-Regular, Consolas, monospace' font-size='12' fill='#1f2328' text-anchor='end'>__init__.py</text>
+<rect x='258' y='190' width='534' height='15' rx='4' fill='#eef1f4'/>
+<rect x='258' y='190' width='534' height='15' rx='4' fill='#0969da'/>
+<text x='800' y='201' font-family='ui-monospace, SFMono-Regular, Consolas, monospace' font-size='12' font-weight='600' fill='#1f2328'>100.0%</text>
+<text x='248' y='201' font-family='ui-monospace, SFMono-Regular, Consolas, monospace' font-size='11' fill='#59636e' text-anchor='start'>63/63 stmts</text>
+<text x='246' y='228' font-family='ui-monospace, SFMono-Regular, Consolas, monospace' font-size='12' fill='#1f2328' text-anchor='end'>_app.py</text>
+<rect x='258' y='217' width='534' height='15' rx='4' fill='#eef1f4'/>
+<rect x='258' y='217' width='534' height='15' rx='4' fill='#0969da'/>
+<text x='800' y='228' font-family='ui-monospace, SFMono-Regular, Consolas, monospace' font-size='12' font-weight='600' fill='#1f2328'>100.0%</text>
+<text x='248' y='228' font-family='ui-monospace, SFMono-Regular, Consolas, monospace' font-size='11' fill='#59636e' text-anchor='start'>56/56 stmts</text>
+<text x='246' y='255' font-family='ui-monospace, SFMono-Regular, Consolas, monospace' font-size='12' fill='#1f2328' text-anchor='end'>dispatch.py</text>
+<rect x='258' y='244' width='534' height='15' rx='4' fill='#eef1f4'/>
+<rect x='258' y='244' width='534' height='15' rx='4' fill='#0969da'/>
+<text x='800' y='255' font-family='ui-monospace, SFMono-Regular, Consolas, monospace' font-size='12' font-weight='600' fill='#1f2328'>100.0%</text>
+<text x='248' y='255' font-family='ui-monospace, SFMono-Regular, Consolas, monospace' font-size='11' fill='#59636e' text-anchor='start'>46/46 stmts</text>
+<text x='246' y='282' font-family='ui-monospace, SFMono-Regular, Consolas, monospace' font-size='12' fill='#1f2328' text-anchor='end'>app.py</text>
+<rect x='258' y='271' width='534' height='15' rx='4' fill='#eef1f4'/>
+<rect x='258' y='271' width='534' height='15' rx='4' fill='#0969da'/>
+<text x='800' y='282' font-family='ui-monospace, SFMono-Regular, Consolas, monospace' font-size='12' font-weight='600' fill='#1f2328'>100.0%</text>
+<text x='248' y='282' font-family='ui-monospace, SFMono-Regular, Consolas, monospace' font-size='11' fill='#59636e' text-anchor='start'>44/44 stmts</text>
+<text x='246' y='309' font-family='ui-monospace, SFMono-Regular, Consolas, monospace' font-size='12' fill='#1f2328' text-anchor='end'>errors.py</text>
+<rect x='258' y='298' width='534' height='15' rx='4' fill='#eef1f4'/>
+<rect x='258' y='298' width='534' height='15' rx='4' fill='#0969da'/>
+<text x='800' y='309' font-family='ui-monospace, SFMono-Regular, Consolas, monospace' font-size='12' font-weight='600' fill='#1f2328'>100.0%</text>
+<text x='248' y='309' font-family='ui-monospace, SFMono-Regular, Consolas, monospace' font-size='11' fill='#59636e' text-anchor='start'>44/44 stmts</text>
+<text x='246' y='336' font-family='ui-monospace, SFMono-Regular, Consolas, monospace' font-size='12' fill='#1f2328' text-anchor='end'>api.py</text>
+<rect x='258' y='325' width='534' height='15' rx='4' fill='#eef1f4'/>
+<rect x='258' y='325' width='534' height='15' rx='4' fill='#0969da'/>
+<text x='800' y='336' font-family='ui-monospace, SFMono-Regular, Consolas, monospace' font-size='12' font-weight='600' fill='#1f2328'>100.0%</text>
+<text x='248' y='336' font-family='ui-monospace, SFMono-Regular, Consolas, monospace' font-size='11' fill='#59636e' text-anchor='start'>38/38 stmts</text>
+<text x='246' y='363' font-family='ui-monospace, SFMono-Regular, Consolas, monospace' font-size='12' fill='#1f2328' text-anchor='end'>models.py</text>
+<rect x='258' y='352' width='534' height='15' rx='4' fill='#eef1f4'/>
+<rect x='258' y='352' width='534' height='15' rx='4' fill='#0969da'/>
+<text x='800' y='363' font-family='ui-monospace, SFMono-Regular, Consolas, monospace' font-size='12' font-weight='600' fill='#1f2328'>100.0%</text>
+<text x='248' y='363' font-family='ui-monospace, SFMono-Regular, Consolas, monospace' font-size='11' fill='#59636e' text-anchor='start'>33/33 stmts</text>
+<text x='246' y='390' font-family='ui-monospace, SFMono-Regular, Consolas, monospace' font-size='12' fill='#1f2328' text-anchor='end'>retry.py</text>
+<rect x='258' y='379' width='534' height='15' rx='4' fill='#eef1f4'/>
+<rect x='258' y='379' width='534' height='15' rx='4' fill='#0969da'/>
+<text x='800' y='390' font-family='ui-monospace, SFMono-Regular, Consolas, monospace' font-size='12' font-weight='600' fill='#1f2328'>100.0%</text>
+<text x='248' y='390' font-family='ui-monospace, SFMono-Regular, Consolas, monospace' font-size='11' fill='#59636e' text-anchor='start'>24/24 stmts</text>
+<text x='246' y='417' font-family='ui-monospace, SFMono-Regular, Consolas, monospace' font-size='12' fill='#1f2328' text-anchor='end'>paths.py</text>
+<rect x='258' y='406' width='534' height='15' rx='4' fill='#eef1f4'/>
+<rect x='258' y='406' width='534' height='15' rx='4' fill='#0969da'/>
+<text x='800' y='417' font-family='ui-monospace, SFMono-Regular, Consolas, monospace' font-size='12' font-weight='600' fill='#1f2328'>100.0%</text>
+<text x='248' y='417' font-family='ui-monospace, SFMono-Regular, Consolas, monospace' font-size='11' fill='#59636e' text-anchor='start'>22/22 stmts</text>
+</svg>

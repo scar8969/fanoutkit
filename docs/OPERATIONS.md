@@ -36,7 +36,9 @@ A rollout order that avoids serving errors:
 1. Apply any environment change first. A missing `SECRET_KEY` in production
    makes the process exit immediately, and the orchestrator will report that as a
    crash loop rather than what it actually is, a config error.
-2. Start the new revision and wait for `/readyz` to return `200`.
+2. Start the new revision and wait for `/readyz` to return `200`. Be aware
+   that `readiness_checks()` ships empty, so this only proves the process built
+   its application; it does not prove the database is reachable.
 3. Shift traffic.
 4. Only then stop the old revision.
 
@@ -69,9 +71,9 @@ cp "$DATA_DIR"/instance/*.db "/backup/$(date +%Y%m%d-%H%M%S).db"
 | Alert                              | First question                                            |
 | ---------------------------------- | --------------------------------------------------------- |
 | `/healthz` failing for over a minute | Is the process alive? Check the container exit code and logs. |
-| `/readyz` failing but `/healthz` fine | A readiness check is failing; the response body names it. |
+| `/readyz` failing but `/healthz` fine | A readiness check is failing; the response body names it. **Today no check is registered**, so `/readyz` cannot fail: add one in `app.readiness_checks()` before you alert on it. |
 | `http_requests_total{status="5xx"}` rising | Read the traceback lines in the log; each carries a request id. |
-| `http_request_duration_seconds` p99 rising | Compare the per-route labels. One slow route is a better first hypothesis than a global regression. |
+| `http_request_duration_seconds_sum` rate rising | The exposition carries a running sum per method, not a histogram, so take `rate(..._sum)` yourself and compare it against `rate(http_requests_total)`. |
 | `process_uptime_seconds` resetting | Crash loop. Look for a config error before a code error. |
 | Disk filling                       | Log volume or database growth in `DATA_DIR`. Logs are JSON lines; rotate them. |
 
@@ -88,9 +90,11 @@ grep '"request_id":"<id>"' "$DATA_DIR"/log/*.log
 
 - Baseline footprint is one Python process: roughly 60 to 90 MB RSS per worker,
   plus the database page cache.
-- Start with `--workers 4` and measure. The counters you need are already
-  exported: `http_requests_total` by route and status class, and
-  `http_request_duration_seconds` as a summary.
+- Start with `--workers 4` and measure. Two series are exported:
+  `http_requests_total{method,status}` as a counter, and
+  `http_request_duration_seconds_sum{method}` as a running total of seconds.
+  There is deliberately no histogram, no count and no p99; derive what you
+  need from the rate of the two counters.
 - SQLite backs a single writer. If write latency grows with replica count, that
   is the symptom; move `DATABASE_URL` to Postgres.
 - SQLite `busy` errors mean lock contention. The fix is fewer concurrent

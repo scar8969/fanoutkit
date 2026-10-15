@@ -45,6 +45,11 @@ def test_metrics_is_prometheus_text(client):
     response = client.get("/metrics")
     assert response.status_code == 200
     assert response.mimetype == "text/plain"
+    # Exactly one charset: the media type carries the Prometheus version
+    # parameter, and Werkzeug must not append a second one.
+    assert response.headers["Content-Type"] == (
+        "text/plain; version=0.0.4; charset=utf-8"
+    )
     text = response.get_data(as_text=True)
     assert "# TYPE process_uptime_seconds gauge" in text
     for line in text.splitlines():

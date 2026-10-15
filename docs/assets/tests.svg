@@ -1,0 +1,23 @@
+<svg xmlns='http://www.w3.org/2000/svg' width='460' height='250' viewBox='0 0 460 250' role='img' aria-label='Test outcome'>
+<rect width='460' height='250' rx='12' fill='#ffffff' stroke='#d1d9e0'/>
+<text x='26' y='33' font-family='Segoe UI, -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif' font-size='17' font-weight='600' fill='#1f2328'>Test outcome</text>
+<text x='26' y='53' font-family='Segoe UI, -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif' font-size='12' fill='#59636e'>189 collected, 4.6 s wall clock, exit code 0</text>
+<path d='M 130.00 44.00 A 74 74 0 1 1 130.00 44.00 L 130.00 70.00 A 48 48 0 1 0 130.00 70.00 Z' fill='#1a7f37'/>
+<path d='M 130.00 44.00 A 74 74 0 0 1 130.00 44.00 L 130.00 70.00 A 48 48 0 0 0 130.00 70.00 Z' fill='#cf222e'/>
+<path d='M 130.00 44.00 A 74 74 0 0 1 130.00 44.00 L 130.00 70.00 A 48 48 0 0 0 130.00 70.00 Z' fill='#bc4c00'/>
+<path d='M 130.00 44.00 A 74 74 0 0 1 130.00 44.00 L 130.00 70.00 A 48 48 0 0 0 130.00 70.00 Z' fill='#59636e'/>
+<text x='130' y='122' font-family='ui-monospace, SFMono-Regular, Consolas, monospace' font-size='26' font-weight='700' fill='#1f2328' text-anchor='middle'>100.0%</text>
+<text x='130' y='142' font-family='Segoe UI, -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif' font-size='11' fill='#59636e' text-anchor='middle'>passed</text>
+<rect x='255' y='56' width='12' height='12' rx='3' fill='#1a7f37'/>
+<text x='274' y='66' font-family='Segoe UI, -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif' font-size='12' fill='#1f2328'>passed</text>
+<text x='274' y='80' font-family='ui-monospace, SFMono-Regular, Consolas, monospace' font-size='11' fill='#59636e'>189 of 189 (100.0%)</text>
+<rect x='255' y='100' width='12' height='12' rx='3' fill='#cf222e'/>
+<text x='274' y='110' font-family='Segoe UI, -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif' font-size='12' fill='#1f2328'>failed</text>
+<text x='274' y='124' font-family='ui-monospace, SFMono-Regular, Consolas, monospace' font-size='11' fill='#59636e'>0 of 189 (0.0%)</text>
+<rect x='255' y='144' width='12' height='12' rx='3' fill='#bc4c00'/>
+<text x='274' y='154' font-family='Segoe UI, -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif' font-size='12' fill='#1f2328'>errors</text>
+<text x='274' y='168' font-family='ui-monospace, SFMono-Regular, Consolas, monospace' font-size='11' fill='#59636e'>0 of 189 (0.0%)</text>
+<rect x='255' y='188' width='12' height='12' rx='3' fill='#59636e'/>
+<text x='274' y='198' font-family='Segoe UI, -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif' font-size='12' fill='#1f2328'>skipped</text>
+<text x='274' y='212' font-family='ui-monospace, SFMono-Regular, Consolas, monospace' font-size='11' fill='#59636e'>0 of 189 (0.0%)</text>
+</svg>

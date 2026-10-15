@@ -1,7 +1,4 @@
 """A2 message-pusher — tests. Run: pytest test_a2_message_pusher.py"""
-import sys, os
-
-import pytest
 
 class FakeChannel:
     """Stand-in for the channel registry."""

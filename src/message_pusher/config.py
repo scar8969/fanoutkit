@@ -34,9 +34,11 @@ class ConfigError(RuntimeError):
 
 def _as_bool(source: Mapping[str, str], name: str, default: bool) -> bool:
     raw = source.get(name)
-    if raw is None or raw == "":
+    if raw is None:
         return default
     value = raw.strip().lower()
+    if value == "":
+        return default
     if value in _TRUE:
         return True
     if value in _FALSE:

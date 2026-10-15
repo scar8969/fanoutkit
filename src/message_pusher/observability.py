@@ -85,7 +85,7 @@ class _TextFormatter(logging.Formatter):
         return base
 
 
-class _StdoutHandler(logging.StreamHandler):
+class _StdoutHandler(logging.StreamHandler[Any]):
     """Write to whatever sys.stdout is *now*.
 
     A handler that binds the stream it saw at construction keeps writing

@@ -1,0 +1,24 @@
+<svg xmlns='http://www.w3.org/2000/svg' width='900' height='300' viewBox='0 0 900 300' role='img' aria-label='File counts'>
+<rect width='900' height='300' rx='12' fill='#ffffff' stroke='#d1d9e0'/>
+<text x='26' y='33' font-family='Segoe UI, -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif' font-size='17' font-weight='600' fill='#1f2328'>File counts</text>
+<text x='26' y='53' font-family='Segoe UI, -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif' font-size='12' fill='#59636e'>modules shipped versus tests written against them</text>
+<line x1='60' y1='234.0' x2='874' y2='234.0' stroke='#d1d9e0' stroke-dasharray='3 4'/>
+<text x='52' y='237.0' font-family='Segoe UI, -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif' font-size='10' fill='#59636e' text-anchor='end'>0</text>
+<line x1='60' y1='196.5' x2='874' y2='196.5' stroke='#d1d9e0' stroke-dasharray='3 4'/>
+<text x='52' y='199.5' font-family='Segoe UI, -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif' font-size='10' fill='#59636e' text-anchor='end'>5.50</text>
+<line x1='60' y1='159.0' x2='874' y2='159.0' stroke='#d1d9e0' stroke-dasharray='3 4'/>
+<text x='52' y='162.0' font-family='Segoe UI, -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif' font-size='10' fill='#59636e' text-anchor='end'>11</text>
+<line x1='60' y1='121.5' x2='874' y2='121.5' stroke='#d1d9e0' stroke-dasharray='3 4'/>
+<text x='52' y='124.5' font-family='Segoe UI, -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif' font-size='10' fill='#59636e' text-anchor='end'>16.50</text>
+<line x1='60' y1='84.0' x2='874' y2='84.0' stroke='#d1d9e0' stroke-dasharray='3 4'/>
+<text x='52' y='87.0' font-family='Segoe UI, -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif' font-size='10' fill='#59636e' text-anchor='end'>22</text>
+<rect x='121.2' y='84.0' width='149' height='150.0' rx='4' fill='#1a7f37'/>
+<text x='195.7' y='78.0' font-family='ui-monospace, SFMono-Regular, Consolas, monospace' font-size='11' font-weight='600' fill='#1f2328' text-anchor='middle'>22</text>
+<text x='195.7' y='254' font-family='Segoe UI, -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif' font-size='11' fill='#1f2328' text-anchor='middle'>src</text>
+<rect x='392.5' y='152.2' width='149' height='81.8' rx='4' fill='#1a7f37'/>
+<text x='467.0' y='146.2' font-family='ui-monospace, SFMono-Regular, Consolas, monospace' font-size='11' font-weight='600' fill='#1f2328' text-anchor='middle'>12</text>
+<text x='467.0' y='254' font-family='Segoe UI, -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif' font-size='11' fill='#1f2328' text-anchor='middle'>tests</text>
+<rect x='663.8' y='199.9' width='149' height='34.1' rx='4' fill='#1a7f37'/>
+<text x='738.3' y='193.9' font-family='ui-monospace, SFMono-Regular, Consolas, monospace' font-size='11' font-weight='600' fill='#1f2328' text-anchor='middle'>5</text>
+<text x='738.3' y='254' font-family='Segoe UI, -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif' font-size='11' fill='#1f2328' text-anchor='middle'>docs</text>
+</svg>
