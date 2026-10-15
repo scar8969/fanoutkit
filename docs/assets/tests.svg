@@ -1,7 +1,7 @@
 <svg xmlns='http://www.w3.org/2000/svg' width='460' height='250' viewBox='0 0 460 250' role='img' aria-label='Test outcome'>
 <rect width='460' height='250' rx='12' fill='#ffffff' stroke='#d1d9e0'/>
 <text x='26' y='33' font-family='Segoe UI, -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif' font-size='17' font-weight='600' fill='#1f2328'>Test outcome</text>
-<text x='26' y='53' font-family='Segoe UI, -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif' font-size='12' fill='#59636e'>189 collected, 4.6 s wall clock, exit code 0</text>
+<text x='26' y='53' font-family='Segoe UI, -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif' font-size='12' fill='#59636e'>189 collected, 5.3 s wall clock, exit code 0</text>
 <path d='M 130.00 44.00 A 74 74 0 1 1 130.00 44.00 L 130.00 70.00 A 48 48 0 1 0 130.00 70.00 Z' fill='#1a7f37'/>
 <path d='M 130.00 44.00 A 74 74 0 0 1 130.00 44.00 L 130.00 70.00 A 48 48 0 0 0 130.00 70.00 Z' fill='#cf222e'/>
 <path d='M 130.00 44.00 A 74 74 0 0 1 130.00 44.00 L 130.00 70.00 A 48 48 0 0 0 130.00 70.00 Z' fill='#bc4c00'/>

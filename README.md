@@ -10,7 +10,7 @@ This README is a measured document. Every number in it was produced on this exac
 <tr>
 <td align="center"><b>189 / 189</b><br><sub>tests passed</sub></td>
 <td align="center"><b>100.0%</b><br><sub>line coverage</sub></td>
-<td align="center"><b>1,533</b><br><sub>source lines</sub></td>
+<td align="center"><b>1,535</b><br><sub>source lines</sub></td>
 <td align="center"><b>9</b><br><sub>routes probed</sub></td>
 <td align="center"><b>0</b><br><sub>screenshots</sub></td>
 </tr>
@@ -23,9 +23,9 @@ This README is a measured document. Every number in it was produced on this exac
 | Signal | Measured value | How it was measured |
 | --- | --- | --- |
 | Tests passed | **189 / 189** | `python -m pytest -q` (exit code 0) |
-| Test wall clock | 4.59 s | junit-xml suite time |
+| Test wall clock | 5.26 s | junit-xml suite time |
 | Line coverage | **100.0%** | 760 of 760 statements executed, 0 missed |
-| Source size | 1,533 lines / 22 modules | counted under `src/` |
+| Source size | 1,535 lines / 22 modules | counted under `src/` |
 | Test size | 2,437 lines / 12 files | counted under `tests/` |
 | Documentation | 557 lines / 5 files | counted under `docs/` |
 | Routes probed | 9 GET routes, 7 answered 200 | real HTTP against `127.0.0.1:<port>` |
@@ -117,7 +117,7 @@ Four of these are liveness and readiness plumbing for an orchestrator; `/metrics
 `/metrics` answered **200**:
 
 ```text
-# TYPE http_requests_total counter http_requests_total{method="GET",status="200"} 2 # TYPE http_request_duration_seconds_sum counter http_request_duration_seconds_sum{method="GET"} 0.0620402 http_requests_total{method="GET",status="404"} 2 # TYPE process_uptime_seconds gauge process_uptime_seconds 0.752
+# TYPE http_requests_total counter http_requests_total{method="GET",status="200"} 2 # TYPE http_request_duration_seconds_sum counter http_request_duration_seconds_sum{method="GET"} 0.0549416 http_requests_total{method="GET",status="404"} 2 # TYPE process_uptime_seconds gauge process_uptime_seconds 0.722
 ```
 
 `/version` answered **200**:
@@ -130,7 +130,7 @@ Four of these are liveness and readiness plumbing for an orchestrator; `/metrics
 
 | Header | Observed value |
 | --- | --- |
-| `X-Request-ID` | `bce9b94a18514737ba1dda1aeb3d314f` |
+| `X-Request-ID` | `163c0332fcf44bb9946af44d3c5f741f` |
 | `X-Content-Type-Options` | `nosniff` |
 | `X-Frame-Options` | `DENY` |
 | `Referrer-Policy` | `no-referrer` |
@@ -244,7 +244,7 @@ Configuration is environment-only, in the twelve-factor sense: nothing is read f
 
 | Gate | Command | Result in this checkout |
 | --- | --- | --- |
-| Tests | `python -m pytest -q` | **189 passed, 0 failed, 0 errors** in 4.59 s |
+| Tests | `python -m pytest -q` | **189 passed, 0 failed, 0 errors** in 5.26 s |
 | Coverage | `python -m pytest --cov=src/message_pusher` | **100.0%** of 760 statements (0 missed) |
 | Lint | `python -m pyflakes src tests conftest.py wsgi.py` | **0 findings** in this checkout (pyflakes is the static checker available here; ruff cannot run on this host) |
 | Types | `python -m mypy --config-file mypy.ini src` | **no issues found in 22 source files** in this checkout |

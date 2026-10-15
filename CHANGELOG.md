@@ -29,8 +29,9 @@ this project adheres to Semantic Versioning
 - Every `Query.get()` and `Query.get_or_404()` call became `db.session.get()`
   and `db.get_or_404()`, removing the SQLAlchemy 2.0 legacy deprecation
   warnings from the suite.
-- `datetime.utcnow()` was deprecated in 3.12 and removed in 3.14; the naive-UTC
-  helper is now built from an aware `datetime.now(UTC)`.
+- `datetime.utcnow()` is deprecated since 3.12 and warns on every call; the
+  naive-UTC helper is now built from an aware `datetime.now(UTC)`. (It has not
+  been removed in 3.14 — that removal is still only planned.)
 - The README quality-gate table, the HTTP surface, the operational-endpoint
   bodies and the architecture tree are generated from measurements instead of
   being written by hand.

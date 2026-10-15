@@ -16,8 +16,10 @@ Base: Any = db.Model
 def _utcnow() -> datetime:
     """Naive UTC timestamp, matching the naive DateTime columns below.
 
-    ``datetime.utcnow()`` was deprecated in 3.12 and removed in 3.14, so the
-    default is built from an aware ``now(UTC)`` and stripped back to naive.
+    ``datetime.utcnow()`` is deprecated since 3.12 and raises a
+    ``DeprecationWarning`` on every call (verified on the 3.14 interpreter that
+    runs this suite), so the default is built from an aware ``now(UTC)`` and
+    stripped back to naive.
     """
     return datetime.now(UTC).replace(tzinfo=None)
 

@@ -12,8 +12,8 @@
 <text x='52' y='124.5' font-family='Segoe UI, -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif' font-size='10' fill='#59636e' text-anchor='end'>1827.75</text>
 <line x1='60' y1='84.0' x2='874' y2='84.0' stroke='#d1d9e0' stroke-dasharray='3 4'/>
 <text x='52' y='87.0' font-family='Segoe UI, -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif' font-size='10' fill='#59636e' text-anchor='end'>2437</text>
-<rect x='121.2' y='139.6' width='149' height='94.4' rx='4' fill='#8250df'/>
-<text x='195.7' y='133.6' font-family='ui-monospace, SFMono-Regular, Consolas, monospace' font-size='11' font-weight='600' fill='#1f2328' text-anchor='middle'>1533</text>
+<rect x='121.2' y='139.5' width='149' height='94.5' rx='4' fill='#8250df'/>
+<text x='195.7' y='133.5' font-family='ui-monospace, SFMono-Regular, Consolas, monospace' font-size='11' font-weight='600' fill='#1f2328' text-anchor='middle'>1535</text>
 <text x='195.7' y='254' font-family='Segoe UI, -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif' font-size='11' fill='#1f2328' text-anchor='middle'>src</text>
 <rect x='392.5' y='84.0' width='149' height='150.0' rx='4' fill='#8250df'/>
 <text x='467.0' y='78.0' font-family='ui-monospace, SFMono-Regular, Consolas, monospace' font-size='11' font-weight='600' fill='#1f2328' text-anchor='middle'>2437</text>
