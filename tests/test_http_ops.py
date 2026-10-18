@@ -7,6 +7,7 @@ their own small applications and install the layer on each of them, which is the
 only way to drive the production-only branches (HSTS, for one) and the adoption
 of a path an application already answers.
 """
+
 from __future__ import annotations
 
 import logging
@@ -135,10 +136,7 @@ def test_a_production_answer_carries_the_security_headers(probe_app):
     response = probe_app.test_client().get("/echo")
 
     assert response.status_code == 200
-    assert (
-        response.headers["Strict-Transport-Security"]
-        == "max-age=63072000; includeSubDomains"
-    )
+    assert response.headers["Strict-Transport-Security"] == "max-age=63072000; includeSubDomains"
     assert response.headers["X-Content-Type-Options"] == "nosniff"
     assert response.headers["X-Frame-Options"] == "DENY"
     assert response.headers["Referrer-Policy"] == "no-referrer"

@@ -1,8 +1,4 @@
 # Development-only dependencies. Never installed in the runtime image.
-# These are NOT vendored in this repository: the sandbox that produced the
-# project had no network access, so ruff / bandit / pip-audit were never
-# executed here. Install them in a networked environment before relying on the
-# lint and security gates.
 pytest>=8.0
 pytest-cov>=5.0
 coverage>=7.5

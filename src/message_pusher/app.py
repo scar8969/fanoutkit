@@ -6,9 +6,11 @@ structured logging, and then layers cross-cutting HTTP concerns -- correlation
 ids, security headers, error envelopes and the operational endpoints -- on top
 of the project's own Flask application. Existing route behaviour is untouched.
 """
+
 from __future__ import annotations
 
-from typing import Any, Callable, Iterable
+from collections.abc import Callable, Iterable
+from typing import Any
 
 from flask import Flask
 

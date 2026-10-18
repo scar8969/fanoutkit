@@ -4,6 +4,7 @@ These assert the interfaces an operator or an orchestrator depends on:
 liveness, readiness, the metric exposition format, and a version document that
 never leaks a secret.
 """
+
 from __future__ import annotations
 
 import json
@@ -47,9 +48,7 @@ def test_metrics_is_prometheus_text(client):
     assert response.mimetype == "text/plain"
     # Exactly one charset: the media type carries the Prometheus version
     # parameter, and Werkzeug must not append a second one.
-    assert response.headers["Content-Type"] == (
-        "text/plain; version=0.0.4; charset=utf-8"
-    )
+    assert response.headers["Content-Type"] == ("text/plain; version=0.0.4; charset=utf-8")
     text = response.get_data(as_text=True)
     assert "# TYPE process_uptime_seconds gauge" in text
     for line in text.splitlines():

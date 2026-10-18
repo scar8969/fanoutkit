@@ -3,6 +3,7 @@
 Every error carries a stable machine-readable code so callers, dashboards and
 alert rules never have to parse an English sentence.
 """
+
 from __future__ import annotations
 
 from typing import Any
@@ -10,13 +11,13 @@ from typing import Any
 __all__ = [
     "AppError",
     "BadRequest",
-    "NotFound",
     "Conflict",
-    "Unauthorized",
     "Forbidden",
+    "NotFound",
     "PayloadTooLarge",
     "RateLimited",
     "ServiceUnavailable",
+    "Unauthorized",
     "error_payload",
 ]
 

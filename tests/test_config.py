@@ -3,6 +3,7 @@
 Environment parsing is the one place a typo in a deployment manifest becomes a
 runtime failure, so every branch is asserted here rather than assumed.
 """
+
 from __future__ import annotations
 
 import pytest

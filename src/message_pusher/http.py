@@ -4,6 +4,7 @@ operational endpoints (/healthz, /livez, /readyz, /metrics, /version).
 The blueprint registers no route that collides with the application: the paths
 below were checked against the frozen OpenAPI document before they were chosen.
 """
+
 from __future__ import annotations
 
 import functools
@@ -43,9 +44,7 @@ class Counter:
     """
 
     def __init__(self) -> None:
-        self._counters: "OrderedDict[tuple[str, tuple[tuple[str, str], ...]], float]" = (
-            OrderedDict()
-        )
+        self._counters: OrderedDict[tuple[str, tuple[tuple[str, str], ...]], float] = OrderedDict()
 
     def inc(
         self,
@@ -68,7 +67,25 @@ class Counter:
 
 METRICS = Counter()
 
-_KNOWN_STATUS_BUCKETS = (200, 201, 204, 301, 302, 304, 400, 401, 403, 404, 405, 409, 413, 429, 500, 502, 503)
+_KNOWN_STATUS_BUCKETS = (
+    200,
+    201,
+    204,
+    301,
+    302,
+    304,
+    400,
+    401,
+    403,
+    404,
+    405,
+    409,
+    413,
+    429,
+    500,
+    502,
+    503,
+)
 
 
 def _sanitize_metric(value: str) -> str:
@@ -105,9 +122,7 @@ def install_observability(app: Flask, settings: Settings) -> None:
 
     @app.before_request
     def _assign_request_id() -> None:  # pragma: no cover - exercised through the app
-        g.request_id = observability.set_request_id(
-            request.headers.get(settings.request_id_header)
-        )
+        g.request_id = observability.set_request_id(request.headers.get(settings.request_id_header))
         g.request_started = time.perf_counter()
 
     @app.after_request
@@ -132,10 +147,10 @@ def install_observability(app: Flask, settings: Settings) -> None:
 
         # /metrics and the probes are noisy; exclude the ones that poll.
         if not request.path.startswith(("/metrics", "/healthz", "/livez", "/readyz")):
-            METRICS.inc("http_requests_total", method=request.method,
-                        status=str(response.status_code))
-            METRICS.inc("http_request_duration_seconds_sum", value=duration,
-                        method=request.method)
+            METRICS.inc(
+                "http_requests_total", method=request.method, status=str(response.status_code)
+            )
+            METRICS.inc("http_request_duration_seconds_sum", value=duration, method=request.method)
             observability.log_event(
                 observability.get_logger("message_pusher.access"),
                 "http_request",
@@ -161,7 +176,9 @@ def register_error_handlers(app: Flask, settings: Settings) -> None:
     logger = observability.get_logger("message_pusher.errors")
 
     @app.errorhandler(AppError)
-    def _application_error(exc: AppError) -> tuple[Response, int]:  # pragma: no cover - thin wrapper
+    def _application_error(
+        exc: AppError,
+    ) -> tuple[Response, int]:  # pragma: no cover - thin wrapper
         return jsonify(exc.to_dict()), exc.status_code
 
     @app.errorhandler(404)
@@ -311,12 +328,13 @@ def ops_blueprint(
     return _bp
 
 
-def _ops_views(settings: Settings, checks: tuple[Any, ...]) -> tuple[tuple[str, Callable[[], Any]], ...]:
+def _ops_views(
+    settings: Settings, checks: tuple[Any, ...]
+) -> tuple[tuple[str, Callable[[], Any]], ...]:
     """The operational views, as ``(path, view)`` pairs."""
 
     def healthz() -> tuple[Response, int]:  # pragma: no cover - exercised through the app
-        return jsonify({"status": "ok", "service": settings.app_name,
-                        "version": __version__}), 200
+        return jsonify({"status": "ok", "service": settings.app_name, "version": __version__}), 200
 
     def livez() -> tuple[Response, int]:  # pragma: no cover - exercised through the app
         return jsonify({"status": "alive"}), 200
@@ -327,7 +345,7 @@ def _ops_views(settings: Settings, checks: tuple[Any, ...]) -> tuple[tuple[str, 
             name = getattr(check, "__name__", "check")
             try:
                 result = check()
-            except Exception as exc:  # noqa: BLE001 - reported, never raised
+            except Exception as exc:
                 failures.append({"check": name, "error": f"{type(exc).__name__}: {exc}"})
                 continue
             if result is False:
@@ -336,8 +354,9 @@ def _ops_views(settings: Settings, checks: tuple[Any, ...]) -> tuple[tuple[str, 
                 failures.append({"check": name, "error": str(result.get("error", "not ok"))})
         if failures:
             return jsonify({"status": "not_ready", "failures": failures}), 503
-        return jsonify({"status": "ready", "checks": [getattr(c, "__name__", "check")
-                                                      for c in checks]}), 200
+        return jsonify(
+            {"status": "ready", "checks": [getattr(c, "__name__", "check") for c in checks]}
+        ), 200
 
     def metrics() -> Response:  # pragma: no cover - exercised through the app
         response = Response(render_metrics(), mimetype="text/plain")

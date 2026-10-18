@@ -5,6 +5,7 @@ is a thin module kept for callers that import the channel by file. A shim that
 drifts from the registry would break those callers silently, so each one is
 checked against the class the registry actually hands out.
 """
+
 from __future__ import annotations
 
 import importlib

@@ -4,6 +4,7 @@ One JSON object per line on stdout is what Docker, journald and every log
 shipper prefer. configure_logging() is idempotent and is called by the WSGI
 entry point, the CLI and the test bootstrap.
 """
+
 from __future__ import annotations
 
 import contextvars
@@ -20,10 +21,10 @@ from . import __version__
 __all__ = [
     "configure_logging",
     "get_logger",
+    "log_event",
+    "new_request_id",
     "request_id",
     "set_request_id",
-    "new_request_id",
-    "log_event",
 ]
 
 _REQUEST_ID: contextvars.ContextVar[str] = contextvars.ContextVar("request_id", default="-")
@@ -31,10 +32,29 @@ _CONFIGURED = False
 
 _RESERVED = frozenset(
     {
-        "args", "asctime", "created", "exc_info", "exc_text", "filename", "funcName",
-        "levelname", "levelno", "lineno", "module", "msecs", "message", "msg", "name",
-        "pathname", "process", "processName", "relativeCreated", "stack_info",
-        "thread", "threadName", "taskName",
+        "args",
+        "asctime",
+        "created",
+        "exc_info",
+        "exc_text",
+        "filename",
+        "funcName",
+        "levelname",
+        "levelno",
+        "lineno",
+        "module",
+        "msecs",
+        "message",
+        "msg",
+        "name",
+        "pathname",
+        "process",
+        "processName",
+        "relativeCreated",
+        "stack_info",
+        "thread",
+        "threadName",
+        "taskName",
     }
 )
 
@@ -116,7 +136,10 @@ def configure_logging(level: str = "INFO", *, json_output: bool | None = None) -
     global _CONFIGURED
     if json_output is None:
         json_output = (os.environ.get("LOG_JSON", "1") or "1").strip().lower() not in {
-            "0", "false", "no", "off",
+            "0",
+            "false",
+            "no",
+            "off",
         }
 
     handler = _StdoutHandler()

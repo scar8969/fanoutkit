@@ -4,6 +4,7 @@ Every path is derived from this module's own location, so the package works
 identically whether it is imported from a source checkout, an editable install
 or a wheel. Nothing here depends on the current working directory.
 """
+
 from __future__ import annotations
 
 import os

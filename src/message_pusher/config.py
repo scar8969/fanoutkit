@@ -5,22 +5,23 @@ secret is committed to the repository: .env.example documents every variable and
 .env is ignored by git. Settings are frozen after construction so an import
 cannot silently reconfigure a running process.
 """
+
 from __future__ import annotations
 
 import os
+from collections.abc import Mapping
 from dataclasses import dataclass, field
-from typing import Mapping
 
 from . import paths
 
-__all__ = ["Settings", "ConfigError", "get_settings", "reset_settings", "LEGACY_ENV_VARS"]
+__all__ = ["LEGACY_ENV_VARS", "ConfigError", "Settings", "get_settings", "reset_settings"]
 
 #: Environment reads that the application modules perform directly. They are
 #: collected here so an operator can discover the whole surface in one place.
 LEGACY_ENV_VARS: tuple[str, ...] = (
-    'ANALYTICS_SALT',
-    'PORT',
-    'PUSHER_URL',
+    "ANALYTICS_SALT",
+    "PORT",
+    "PUSHER_URL",
 )
 
 _TRUE = {"1", "true", "yes", "on"}
@@ -89,7 +90,7 @@ class Settings:
         return __version__
 
     @classmethod
-    def from_env(cls, environ: Mapping[str, str] | None = None) -> "Settings":
+    def from_env(cls, environ: Mapping[str, str] | None = None) -> Settings:
         source = os.environ if environ is None else environ
 
         def get(name: str, default: str = "") -> str:

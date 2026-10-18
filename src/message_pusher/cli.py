@@ -4,6 +4,7 @@ The client only needs the standard library, so `python cli.py --help` works
 in a bare interpreter with no third-party packages installed. Commands that
 touch the database import Flask-SQLAlchemy lazily, inside the handler.
 """
+
 import argparse
 import json
 import os
@@ -16,14 +17,17 @@ from . import paths
 
 BASE = os.environ.get("PUSHER_URL", "http://127.0.0.1:8000")
 
-def _request(path: str, payload: Any = None, key: str | None = None,
-             method: str | None = None) -> tuple[int, str]:
+
+def _request(
+    path: str, payload: Any = None, key: str | None = None, method: str | None = None
+) -> tuple[int, str]:
     data = json.dumps(payload).encode() if payload is not None else None
     headers = {"Content-Type": "application/json"}
     if key:
         headers["X-App-Key"] = key
-    req = urllib.request.Request(BASE + path, data=data, method=method or ("POST" if data else "GET"),
-                                 headers=headers)
+    req = urllib.request.Request(
+        BASE + path, data=data, method=method or ("POST" if data else "GET"), headers=headers
+    )
     try:
         with urllib.request.urlopen(req, timeout=15) as r:
             return r.status, r.read().decode()
@@ -37,12 +41,16 @@ def _request(path: str, payload: Any = None, key: str | None = None,
     except urllib.error.URLError as e:
         return 0, json.dumps({"error": "cannot reach %s: %s" % (BASE, e.reason)})
 
+
 def cmd_push(args: Any) -> int:
-    status, body = _request("/api/push",
-                            {"title": args.title, "body": args.body, "channels": args.channel},
-                            key=args.key)
+    status, body = _request(
+        "/api/push",
+        {"title": args.title, "body": args.body, "channels": args.channel},
+        key=args.key,
+    )
     print("%s %s" % (status, body))
     return 0 if status == 200 else 1
+
 
 def cmd_status(args: Any) -> int:
     status, body = _request("/api/status/%d" % args.message_id)
@@ -51,7 +59,10 @@ def cmd_status(args: Any) -> int:
             doc = json.loads(body)
             print("message %s  title=%r  status=%s" % (doc["id"], doc["title"], doc["status"]))
             for r in doc["receipts"]:
-                print("  %-9s %-9s attempts=%s  %s" % (r["channel"], r["status"], r["attempts"], r["detail"]))
+                print(
+                    "  %-9s %-9s attempts=%s  %s"
+                    % (r["channel"], r["status"], r["attempts"], r["detail"])
+                )
         except (ValueError, KeyError, TypeError):
             # A 200 that is not the documented envelope (a proxy interstitial,
             # say) is shown verbatim rather than raising a KeyError.
@@ -60,16 +71,19 @@ def cmd_status(args: Any) -> int:
         print("%s %s" % (status, body))
     return 0 if status == 200 else 1
 
+
 def cmd_retry(args: Any) -> int:
     status, body = _request("/api/messages/%d/retry" % args.message_id, {}, method="POST")
     print("%s %s" % (status, body))
     return 0 if status == 200 else 1
 
+
 def cmd_apps(args: Any) -> int:
     # Read-only inspection straight off the local SQLite file via the models.
     sys.path.insert(0, str(paths.PROJECT_ROOT))
     from flask import Flask
-    from .models import App, Message, db  # noqa: E402  (needs Flask-SQLAlchemy)
+
+    from .models import App, Message, db
 
     paths.INSTANCE_DIR.mkdir(parents=True, exist_ok=True)
     app = Flask(__name__, instance_path=str(paths.INSTANCE_DIR))
@@ -90,9 +104,12 @@ def cmd_apps(args: Any) -> int:
         getattr(db, "_app_engines", {}).pop(app, None)
     return 0
 
+
 def build_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(prog="pusher", description="message-pusher CLI")
-    p.add_argument("--url", help="base URL of a running instance (default $PUSHER_URL or %s)" % BASE)
+    p.add_argument(
+        "--url", help="base URL of a running instance (default $PUSHER_URL or %s)" % BASE
+    )
     sub = p.add_subparsers(dest="cmd")
 
     ps = sub.add_parser("push", help="queue a message fan-out")
@@ -100,8 +117,9 @@ def build_parser() -> argparse.ArgumentParser:
     ps.add_argument("body")
     ps.add_argument("--app", help="app name, for the record printed by --verbose")
     ps.add_argument("--key", required=True, help="app key sent as X-App-Key")
-    ps.add_argument("--channel", action="append", default=None,
-                    help="repeatable; defaults to telegram")
+    ps.add_argument(
+        "--channel", action="append", default=None, help="repeatable; defaults to telegram"
+    )
     ps.add_argument("--verbose", action="store_true")
     ps.set_defaults(func=cmd_push)
 
@@ -116,6 +134,7 @@ def build_parser() -> argparse.ArgumentParser:
     pa = sub.add_parser("apps", help="list apps and messages from the local database")
     pa.set_defaults(func=cmd_apps)
     return p
+
 
 def main(argv: list[str] | None = None) -> int:
     p = build_parser()

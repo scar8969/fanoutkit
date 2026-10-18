@@ -5,6 +5,7 @@ tests pin the two behaviours an indirect run cannot observe -- exactly which
 configuration values travel down to the project's own factory, and the
 process-wide singleton the WSGI entry point relies on.
 """
+
 from __future__ import annotations
 
 import logging
