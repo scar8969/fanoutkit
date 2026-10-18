@@ -34,7 +34,7 @@ RUN groupadd --system --gid 1001 app \
 WORKDIR /app
 
 COPY --from=builder /wheels /wheels
-RUN python -m pip install --no-cache-dir --no-index --find-links=/wheels a2-message-pusher \
+RUN python -m pip install --no-cache-dir --no-index --find-links=/wheels fanoutkit \
  && rm -rf /wheels \
  && mkdir -p /var/lib/message_pusher/instance /var/lib/message_pusher/log \
  && chown -R app:app /var/lib/message_pusher /app

@@ -1,6 +1,6 @@
 '''Suite-wide application context.
 
-Every legacy helper generated from the recorded skeleton reaches the database
+Every legacy helper generated for the test harness reaches the database
 through ``Model.query``. Flask-SQLAlchemy scopes that session to the current
 application context, so calling such a helper from a bare unit test raises
 ``RuntimeError: Working outside of application context``. Pushing the real

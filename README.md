@@ -1,8 +1,8 @@
-# a2-message-pusher
+# fanoutkit
 
 [![python: 3.11 %7C 3.12 %7C 3.13](https://img.shields.io/badge/python-3.11%20%7C%203.12%20%7C%203.13-3776ab)](#requirements) [![tests: 189 passed](https://img.shields.io/badge/tests-189%20passed-2ea44f)](#quality-gates) [![coverage: 100.0%25](https://img.shields.io/badge/coverage-100.0%25-brightgreen)](#quality-gates) [![version: 0.1.0](https://img.shields.io/badge/version-0.1.0-0969da)](CHANGELOG.md) [![license: MIT](https://img.shields.io/badge/license-MIT-2ea44f)](LICENSE)
 
-**a2-message-pusher** is a Flask service packaged the way a production service is packaged: a real package under `src/`, an environment-only configuration contract, structured JSON logs with request correlation, the five operational endpoints an orchestrator expects, a multi-stage container image, and CI gates that keep all of it honest.
+**fanoutkit** is a Flask service packaged the way a production service is packaged: a real package under `src/`, an environment-only configuration contract, structured JSON logs with request correlation, the five operational endpoints an orchestrator expects, a multi-stage container image, and CI gates that keep all of it honest.
 
 This README is a measured document. Every number in it was produced on this exact checkout by the commands recorded in [docs/EVIDENCE.md](docs/EVIDENCE.md): **189 tests** run under pytest, **760 statements** traced by coverage, and **9 HTTP requests** issued over a real socket to the running server.
 
@@ -84,7 +84,7 @@ Status distribution: **200** x7, **404** x2. No response was a 5xx.
 
 ### Declared API contract
 
-`openapi/a2_message_pusher.yaml` declares **3 paths** carrying **3 operations** (1 GET, 2 POST):
+`openapi/fanoutkit.yaml` declares **3 paths** carrying **3 operations** (1 GET, 2 POST):
 
 | Method | Path |
 | --- | --- |
@@ -123,7 +123,7 @@ Four of these are liveness and readiness plumbing for an orchestrator; `/metrics
 `/version` answered **200**:
 
 ```json
-{"config":{"app_name":"message_pusher","data_dir":"C:\\Users\\priya\\Desktop\\project-skeletons\\projects\\a2_message_pusher\\var","database_configured":false,"debug":false,"env":"development","host":"0.0.0.0","legacy_env_present":[],"log_json":true,"log_level":"INFO","port":8000,"secret_key_configured":false},"paths":{"data_dir":"C:\\Users\\priya\\Desktop\\project-skeletons\\projects\\a2_message_
+{"config":{"app_name":"message_pusher","data_dir":".\\var","database_configured":false,"debug":false,"env":"development","host":"0.0.0.0","legacy_env_present":[],"log_json":true,"log_level":"INFO","port":8000,"secret_key_configured":false},"paths":{"data_dir":"a2_message_
 ```
 
 ### Headers on every response
@@ -184,9 +184,9 @@ docs/
     payload.svg
     tests.svg
 openapi/
-  a2_message_pusher.yaml
+  fanoutkit.yaml
 schema/
-  a2_message_pusher.sql
+  fanoutkit.sql
 src/
   message_pusher/
     __init__.py
@@ -202,7 +202,7 @@ src/
     py.typed
 tests/
   conftest.py
-  test_a2_message_pusher.py
+  test_fanoutkit.py
   test_api_surface.py
   test_app_factory.py
   test_channel_shims.py
@@ -259,7 +259,7 @@ Coverage clears the **85%** floor declared in `pyproject.toml` (`fail_under`), s
 | File | def test_* | class Test* |
 | --- | --- | --- |
 | `tests/conftest.py` | 0 | 0 |
-| `tests/test_a2_message_pusher.py` | 5 | 0 |
+| `tests/test_fanoutkit.py` | 5 | 0 |
 | `tests/test_api_surface.py` | 17 | 0 |
 | `tests/test_app_factory.py` | 10 | 0 |
 | `tests/test_channel_shims.py` | 2 | 0 |

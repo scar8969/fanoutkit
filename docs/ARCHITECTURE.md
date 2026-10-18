@@ -9,7 +9,7 @@ they do, and what breaks first under load.
 
 ## 1. Context
 
-a2_message_pusher is a single-process Flask service. It owns its own database (SQLite by
+fanoutkit is a single-process Flask service. It owns its own database (SQLite by
 default, any SQLAlchemy-supported backend via `DATABASE_URL`) and is deployed
 behind a reverse proxy or an orchestrator.
 
@@ -81,7 +81,7 @@ flowchart TB
 | `templates/base.html` | asset |
 | `templates/index.html` | asset |
 | `templates/message.html` | asset |
-| `tests/test_a2_message_pusher.py` | module |
+| `tests/test_fanoutkit.py` | module |
 | `_app.py` | module |
 
 ---
@@ -144,9 +144,9 @@ writable lives under `/app`.
 
 | Table | Owner |
 | --- | --- |
-| `apps` | owned by `a2_message_pusher` |
-| `messages` | owned by `a2_message_pusher` |
-| `receipts` | owned by `a2_message_pusher` |
+| `apps` | owned by `fanoutkit` |
+| `messages` | owned by `fanoutkit` |
+| `receipts` | owned by `fanoutkit` |
 
 Tables are created by the application's own bootstrap on first use. No migration
 tool is wired in; the schema is additive, and the service tolerates a missing or

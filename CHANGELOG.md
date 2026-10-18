@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to a2-message-pusher are documented here.
+All notable changes to fanoutkit are documented here.
 
 The format follows Keep a Changelog (https://keepachangelog.com/en/1.1.0/), and
 this project adheres to Semantic Versioning
@@ -71,7 +71,7 @@ this project adheres to Semantic Versioning
 ## [0.1.0] - 2026-10-08
 
 First release under the current packaging. This is the industry-baseline
-release: the domain behaviour is the original skeleton's, and everything around
+release: the domain behaviour is the original contract's, and everything around
 it is new.
 
 ### Added

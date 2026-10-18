@@ -3,13 +3,13 @@ requires = ["setuptools>=69", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "a2-message-pusher"
+name = "fanoutkit"
 version = "0.1.0"
-description = "A small self-hosted service that accepts one message from an app and fans it out"
+description = "Self-hosted message fan-out: one HTTP call from your app, delivered to every configured channel with retries and per-channel status."
 readme = "README.md"
 requires-python = ">=3.11"
 license = { text = "MIT" }
-authors = [{ name = "project-skeletons maintainers" }]
+authors = [{ name = "Priyanshu Rout" }]
 keywords = ["flask", "service", "message_pusher"]
 classifiers = [
   "Development Status :: 4 - Beta",
@@ -47,7 +47,7 @@ Documentation = "https://example.invalid/message_pusher/docs"
 Issues = "https://example.invalid/message_pusher/issues"
 
 [project.scripts]
-a2-message-pusher = "message_pusher.cli:main"
+fanoutkit = "message_pusher.cli:main"
 
 [tool.setuptools]
 package-dir = { "" = "src" }

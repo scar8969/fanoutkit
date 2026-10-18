@@ -1,4 +1,4 @@
-"""A2 message-pusher — tests. Run: pytest test_a2_message_pusher.py"""
+"""A2 message-pusher — tests. Run: pytest test_fanoutkit.py"""
 
 class FakeChannel:
     """Stand-in for the channel registry."""
