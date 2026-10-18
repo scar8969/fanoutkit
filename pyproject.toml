@@ -73,9 +73,12 @@ branch = true
 omit = ["*/tests/*"]
 
 [tool.coverage.report]
+# The floor sits five points under the coverage measured on this
+# checkout at v0.1.0, so a real regression fails the gate and a few new
+# lines do not.
 show_missing = true
 skip_covered = false
-fail_under = 85
+fail_under = 95
 exclude_lines = [
   "pragma: no cover",
   "if TYPE_CHECKING:",
@@ -145,7 +148,7 @@ ignore_missing_imports = true
 # base class of App, Message and Receipt is a plain Any; subclassing it is
 # correct and intentional, and this is the only module where it happens.
 [[tool.mypy.overrides]]
-module = ["message_pusher.models"]
+module = ["message_pusher.models", "models"]
 disallow_subclassing_any = false
 
 [tool.bandit]
