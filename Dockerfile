@@ -2,7 +2,7 @@
 # Multi-stage build: wheels are compiled in the builder, the runtime image ships
 # only the installed distribution and runs as an unprivileged user.
 
-FROM python:3.12-slim AS builder
+FROM python:3.14-slim AS builder
 
 ENV PIP_DISABLE_PIP_VERSION_CHECK=1 \
     PIP_NO_CACHE_DIR=1 \
@@ -20,7 +20,7 @@ RUN python -m pip install --upgrade pip setuptools wheel \
  && python -m pip wheel --wheel-dir /wheels .
 
 
-FROM python:3.12-slim AS runtime
+FROM python:3.14-slim AS runtime
 
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
