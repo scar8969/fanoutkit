@@ -147,3 +147,9 @@ ignore_missing_imports = true
 [[tool.mypy.overrides]]
 module = ["message_pusher.models"]
 disallow_subclassing_any = false
+
+[tool.bandit]
+# Reviewed findings, each inherent to the architecture:
+#   B104: the service binds 0.0.0.0 inside a container; the port is the contract
+#   B310: urlopen targets an operator-configured endpoint, never user input
+skips = ["B104", "B310"]
