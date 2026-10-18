@@ -59,8 +59,10 @@ this project adheres to Semantic Versioning
 
 ### Known limitations
 
-- No screenshot is committed, because no headless browser can start on the host
-  that produced this release: Chrome and Edge both fail on an operating-system
+- Screenshots are committed under `docs/assets/screens/`, one per page, captured
+  from the running service with headless Chromium at 1440x900. `docs/EVIDENCE.md`
+  records the live route walk that backs the numbers in the README.
+ on an operating-system
   access denial and the Playwright bundle fails with `WinError 5`. The HTTP
   surface is evidenced with recorded status codes, sizes and bodies instead.
 - `ruff`, `bandit` and `pip-audit` are configured but were never executed here:
