@@ -4,7 +4,7 @@ Every line below was produced by a command run against this exact checkout, on t
 
 | | |
 | --- | --- |
-| Generated | 2026-10-19 02:19 |
+| Generated | 2026-10-19 09:38 |
 | Python | 3.14.7 |
 | Platform | Windows 11 |
 
@@ -15,7 +15,7 @@ python -m pytest -q
 ```
 
 - exit code **0**
-- 189 passed in 4.85s
+- 189 passed in 4.11s
 
 ## Static gates
 
@@ -35,6 +35,25 @@ The application was imported through `wsgi.py` and each GET path declared in `op
 | 404 | `/api/status/1` | 51 | application/json |
 
 1 paths walked, 0 of them raised or answered 5xx.
+
+## CLI
+
+```
+usage: pusher [-h] [--url URL] {push,status,retry,apps} ...
+
+message-pusher CLI
+
+positional arguments:
+  {push,status,retry,apps}
+    push                queue a message fan-out
+    status              show a message and its delivery receipts
+    retry               re-queue retrying receipts for a message
+    apps                list apps and messages from the local database
+
+options:
+  -h, --help            show this help message and exit
+  --url URL             base URL of a running instance (default $PUSHER_URL or
+```
 
 ## Screenshots
 

@@ -148,3 +148,7 @@ def main(argv: list[str] | None = None) -> int:
     if args.cmd == "push" and not args.channel:
         args.channel = ["telegram"]
     return cast(int, args.func(args))
+
+
+if __name__ == "__main__":  # pragma: no cover - manual entry point
+    raise SystemExit(main())

@@ -81,10 +81,10 @@ def test_reads_from_os_environ_when_no_mapping_is_given(monkeypatch):
 
 
 def test_the_legacy_environment_variables_are_recorded():
-    settings = Settings.from_env({"PORT": "8000", "ANALYTICS_SALT": "pepper"})
+    settings = Settings.from_env({"PORT": "8000", "PUSHER_URL": "http://cli:8000"})
 
-    assert settings.extras == {"PORT": "8000", "ANALYTICS_SALT": "pepper"}
-    assert settings.as_dict()["legacy_env_present"] == ["ANALYTICS_SALT", "PORT"]
+    assert settings.extras == {"PORT": "8000", "PUSHER_URL": "http://cli:8000"}
+    assert settings.as_dict()["legacy_env_present"] == ["PORT", "PUSHER_URL"]
 
 
 @pytest.mark.parametrize(
